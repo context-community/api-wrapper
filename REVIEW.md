@@ -1,0 +1,8 @@
+- feature based
+- api versioning
+- swagger docs
+- save actions
+- use lombok (@RequiredArgsConstructor)
+- separation the concerns
+- add env.example file
+- any duplicated code => there is an issue

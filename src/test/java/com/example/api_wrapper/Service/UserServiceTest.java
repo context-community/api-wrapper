@@ -1,7 +1,6 @@
 package com.example.api_wrapper.Service;
 
 import com.example.api_wrapper.Model.User;
-import com.example.api_wrapper.ThirdParty.ThirdParty;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,7 +20,7 @@ public class UserServiceTest {
     UserService userService;
 
     @Test
-    void getUsersTest(){
+    void getUsersTest() {
 
         User[] users = {
                 new User(),
@@ -32,7 +31,7 @@ public class UserServiceTest {
 
         User[] result = userService.getUsers();
 
-        assertArrayEquals(users,result);
+        assertArrayEquals(users, result);
 
         Mockito.verify(thirdParty).getUsers();
     }

@@ -1,8 +1,7 @@
 package com.example.api_wrapper.ThirdParty;
 
 import com.example.api_wrapper.Model.Comment;
-import com.example.api_wrapper.Model.Post;
-import com.example.api_wrapper.Model.User;
+import com.example.api_wrapper.features.post.Post;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -12,36 +11,30 @@ import java.util.List;
 
 
 @Component
-public class ThirdParty {
+//@RequiredArgsConstructor
+public class PostIntegration {
+    private final ThirdPartyCallerService thirdPartyCallerService;
 
     private final RestClient restClient;
 
-    public ThirdParty(RestClient.Builder builder){
+    public PostIntegration(ThirdPartyCallerService thirdPartyCallerService, RestClient.Builder builder) {
+        this.thirdPartyCallerService = thirdPartyCallerService;
 
         this.restClient = builder
+                //TODO: move to env var
                 .baseUrl("https://jsonplaceholder.typicode.com")
                 .build();
 
     }
 
-    public User[] getUsers(){
-
-       return restClient.get().uri("users")
-                .retrieve().body(User[].class);
-
-
-    }
-
     //remove to the onother class
-    public List<Post> getPosts(){
-        return restClient.get()
-                .uri("/posts")
-                .retrieve()
-                .body(new ParameterizedTypeReference<List<Post>>() {});
+    public List<Post> getPosts() {
+        return thirdPartyCallerService.getRequest("posts", new ParameterizedTypeReference<List<Post>>() {
+        });
     }
 
 
-    public ResponseEntity<Void> deletePost(long id){
+    public ResponseEntity<Void> deletePost(long id) {
         return restClient.delete().uri("/posts/{id}", id)
                 .retrieve()
                 .toBodilessEntity();
@@ -50,16 +43,16 @@ public class ThirdParty {
     public Post updatePost(long id, Post post) {
 
         return restClient.put()
-                .uri("/posts/{id}",id)
+                .uri("/posts/{id}", id)
                 .body(post)
                 .retrieve()
                 .body(Post.class);
 
     }
 
-    public List<Comment> getCommentOfPost(long postId){
+    public List<Comment> getCommentOfPost(long postId) {
 
-        return restClient.get().uri(uriBuilder ->  uriBuilder
+        return restClient.get().uri(uriBuilder -> uriBuilder
                         .path("/comments")
                         .queryParam("postId", postId)
                         .build()
