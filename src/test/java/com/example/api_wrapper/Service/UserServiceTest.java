@@ -1,7 +1,8 @@
 package com.example.api_wrapper.Service;
 
-import com.example.api_wrapper.Model.User;
-import com.example.api_wrapper.ThirdParty.ThirdParty;
+import com.example.api_wrapper.ThirdParty.UserIntegration;
+import com.example.api_wrapper.features.user.User;
+import com.example.api_wrapper.features.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,26 +16,26 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 public class UserServiceTest {
 
     @Mock
-    ThirdParty thirdParty;
+    UserIntegration userIntegration;
 
     @InjectMocks
     UserService userService;
 
     @Test
-    void getUsersTest(){
+    void getUsersTest() {
 
         User[] users = {
                 new User(),
                 new User()
         };
 
-        Mockito.when(thirdParty.getUsers()).thenReturn(users);
+        Mockito.when(userIntegration.getUsers()).thenReturn(users);
 
         User[] result = userService.getUsers();
 
-        assertArrayEquals(users,result);
+        assertArrayEquals(users, result);
 
-        Mockito.verify(thirdParty).getUsers();
+        Mockito.verify(userIntegration).getUsers();
     }
 
 }

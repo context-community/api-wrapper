@@ -1,11 +1,10 @@
-package com.example.api_wrapper.Model;
+package com.example.api_wrapper.features.user;
 
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import com.example.api_wrapper.Model.Address;
+import com.example.api_wrapper.Model.Company;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Data
 @NoArgsConstructor

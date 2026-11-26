@@ -1,0 +1,8 @@
+- swagger docs = done
+- feature based = done
+- api versioning = done
+- save actions = done
+- use lombok (@RequiredArgsConstructor) = done
+- separation the concerns = done
+- add env.example file = done
+- any duplicated code => there is an issue = done
